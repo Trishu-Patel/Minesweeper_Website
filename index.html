@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Minesweeper</title>
+        <link rel="stylesheet" href="minesweeper.css">
+    </head>
+    <body>
+        <h1>💣Minesweeper🧹</h1>
+
+        <div id="face"></div>
+
+        <div id="board-Info">
+            <div id="text_box_labels">
+                <label for="num_of_rows">Number of Rows:</label>
+                <label for="num_of_cols">Number of Columns:</label>
+                <label for="num_of_mines">Number of Mines:</label>
+            </div>
+            <div>     
+                <input id="num_of_rows" type="number" placeholder="Ex: 10" class="textboxes" maxlength="2" value="10"><br>
+                <input id="num_of_cols" type="number" placeholder="Ex: 10"  class="textboxes" maxlength="2" value="10"><br>
+                <input id="num_of_mines" type="number" placeholder="Ex: 10"  class="textboxes" maxlength="2" value="10"><br>
+            </div>
+
+            <button id="gen_board_btn">Generate Board</button><br>
+        </div>
+
+        <div id="board"></div>
+
+        <div>
+            <input type="radio" id="dig" name="click_action" checked="checked"><label for="dig_btn">⛏️Dig on Click</label>
+            <br>   
+            <input type="radio" id="flag" name="click_action"><label for="flag_btn">🚩Flag on Click</label>
+        </div>
+        
+        <script src="minesweeper_module.js" type="module"></script>
+    </body>
+</html>
