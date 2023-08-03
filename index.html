@@ -8,8 +8,12 @@
     </head>
     <body>
         <h1>💣Minesweeper🧹</h1>
-
-        <div id="face"></div>
+        <div id="game-info">
+            <div id="mine_count">123</div>
+            <div id="face"></div>
+            <div id="timer">hello</div>
+        </div>
+        
 
         <div id="board-Info">
             <div id="text_box_labels">
@@ -18,9 +22,9 @@
                 <label for="num_of_mines">Number of Mines:</label>
             </div>
             <div>     
-                <input id="num_of_rows" type="number" placeholder="Ex: 10" class="textboxes" maxlength="2" value="10"><br>
-                <input id="num_of_cols" type="number" placeholder="Ex: 10"  class="textboxes" maxlength="2" value="10"><br>
-                <input id="num_of_mines" type="number" placeholder="Ex: 10"  class="textboxes" maxlength="2" value="10"><br>
+                <input id="num_of_rows" type="number" class="textboxes" maxlength="2" value="10"><br>
+                <input id="num_of_cols" type="number"class="textboxes" maxlength="2" value="10"><br>
+                <input id="num_of_mines" type="number" class="textboxes" maxlength="2" value="10"><br>
             </div>
 
             <button id="gen_board_btn">Generate Board</button><br>

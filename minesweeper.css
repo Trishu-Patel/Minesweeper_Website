@@ -102,3 +102,10 @@ body {
 h1{
     text-align: center;
 }
+
+#game-info {
+    width: 360px;
+    margin: 0 auto;
+    display: flex;
+    
+}

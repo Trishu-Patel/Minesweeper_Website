@@ -38,7 +38,14 @@ class cell_class {
         check_game_won();
     }
 
-    game_over = () => {
+    game_over_lose = () => {
+        if(this.is_mine) this.tile.innerText = cell_class.mine;
+        this.tile.removeEventListener("click", this.click_tile);
+        this.tile.removeEventListener("mouseover", this.hover);
+        this.tile.removeEventListener("mouseout", this.not_hover);
+    }
+
+    game_over_win = () => {
         this.tile.removeEventListener("click", this.click_tile);
         this.tile.removeEventListener("mouseover", this.hover);
         this.tile.removeEventListener("mouseout", this.not_hover);
@@ -98,6 +105,7 @@ class cell_class {
             this.tile.style.color = tile_color;
         }
     }
+
 
     // Flips the state of the flag
     change_flag = () => {

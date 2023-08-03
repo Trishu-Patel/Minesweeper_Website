@@ -1,3 +1,5 @@
+// 12:10 8/3/2023 Newest Version
+
 import {cell_class} from "./cell_module.js";
 
 const flag = "🚩";
@@ -52,9 +54,9 @@ const create_Board = () => {
 
     // Place mines in the board array
     place_mines(total_mines , null, null);
-    print_board();
 }
 
+// Used to print the current board into the console (for debugging)
 const print_board = () => {
     let print_array = []
     for (let y = 0; y < rows; y++) {
@@ -135,7 +137,7 @@ const show_surrounding_tiles = (x, y) => {
 // Ends the game when the user clicks on a mine
 const game_lose = () => {
     face_div.innerText = dead_face;
-    board_array.forEach(row => row.forEach(current_tile => current_tile.game_over()));
+    board_array.forEach(row => row.forEach(current_tile => current_tile.game_over_lose()));
 }
 
 // 
@@ -146,7 +148,7 @@ const check_game_won = () => {
     }))){
         // If game is 
         face_div.innerText = sunglasses_face;
-        board_array.forEach(row => row.forEach(current_tile => current_tile.game_over()));
+        board_array.forEach(row => row.forEach(current_tile => current_tile.check_game_won()));
     }
 }
 
@@ -169,14 +171,10 @@ const setup_board_gen = () => {
         if(total_mines < 1) alert("Number of mines must be greater than Zero");
         if(total_mines > (rows * cols)) alert("Number of mines must be less than the product of the rows and columns");
 
+        // This if statement prevent you from creating a new board if the input is invaild
         if((rows > 0) && (cols > 0) && (total_mines < (rows * cols))) {
-            // Deletes all old tile to restart the game
-            for (let y = rows - 1; y >= 0; y--) {
-                for (let x = cols - 1; x >= 0; x--) {
-                    board_array[y][x].delete_tile();
-                }
-                board_array.pop()
-            }
+            board_array.forEach(row => row.forEach(current_tile => current_tile.delete_tile()));
+            board_array = [];
             create_Board();
         }
     })
