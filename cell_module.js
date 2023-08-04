@@ -1,9 +1,10 @@
-import {show_surrounding_tiles, check_game_won, game_lose, move_mine, flag_mode} from "./minesweeper_module.js"
+import {show_surrounding_tiles, check_game_won, game_lose, move_mine, update_mine_count, flag_mode} from "./minesweeper_module.js"
 
 class cell_class {
     static first_click = true;
     static mine = "💣";
     static flag = "🚩";
+    static flag_count = 0;
 
     constructor(x, y) {
         this.x = x;
@@ -106,13 +107,19 @@ class cell_class {
         }
     }
 
-
     // Flips the state of the flag
     change_flag = () => {
        if(!this.showing){ // prevents you from flagging a cell that is showing
             this.flagged = !this.flagged
-            if(this.flagged)    this.tile.innerText = cell_class.flag;
-            else                this.tile.innerText = "";
+            if(this.flagged){
+                this.tile.innerText = cell_class.flag
+                cell_class.flag_count++;
+            }
+            else{
+                this.tile.innerText = ""
+                cell_class.flag_count--;
+            }
+            update_mine_count();
         }
     }
 }

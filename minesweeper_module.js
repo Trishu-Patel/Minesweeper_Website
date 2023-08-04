@@ -15,10 +15,12 @@ let rows = 10;
 let cols = 10;
 let total_mines = 10;
 
-let mine_list = [];
 let board_array = [];
 
 let flag_mode = false;
+
+let clock;
+let time_run;
 
 //Create const from 
 const gen_btn = document.getElementById("gen_board_btn");
@@ -28,13 +30,20 @@ const flag_btn = document.getElementById("flag");
 const row_text = document.getElementById("num_of_rows");
 const col_text = document.getElementById("num_of_cols");
 const mine_text = document.getElementById("num_of_mines");
+
 const board_div = document.getElementById("board");
 const face_div = document.getElementById("face");
 
+const timer = document.getElementById("timer");
+const mines_count = document.getElementById("mine_count");
 
 
 const create_Board = () => {
     face_div.innerHTML = happy_face;
+    update_mine_count();
+
+    // Setup timer
+    start_timer();
 
     // Creates board array and populates it with 0
     for (let y = 0; y < rows; y++) {
@@ -80,7 +89,6 @@ const place_mines = (mines_count, first_x, first_y) =>{
         if ((!board_array[random_y][random_x].is_mine) && (random_x != first_x) && (random_y != first_y)) {
             board_array[random_y][random_x].is_mine = true;
             place_mines(mines_count - 1);
-            mine_list.push(`${random_x}-${random_y}`);
             increment_surrounding_tiles(random_x, random_y);
         }
         else {
@@ -136,6 +144,7 @@ const show_surrounding_tiles = (x, y) => {
 
 // Ends the game when the user clicks on a mine
 const game_lose = () => {
+    clearInterval(clock);
     face_div.innerText = dead_face;
     board_array.forEach(row => row.forEach(current_tile => current_tile.game_over_lose()));
 }
@@ -146,9 +155,10 @@ const check_game_won = () => {
         // Checks to see if all mines have been flagged and all other cells are showing
         return ((!current_tile.is_mine && current_tile.showing) || (current_tile.is_mine && current_tile.flagged))
     }))){
-        // If game is 
+        // If game is won 
+        clearInterval(clock);
         face_div.innerText = sunglasses_face;
-        board_array.forEach(row => row.forEach(current_tile => current_tile.check_game_won()));
+        board_array.forEach(row => row.forEach(current_tile => current_tile.game_over_win()));
     }
 }
 
@@ -160,6 +170,10 @@ const move_mine = (mine_x, mine_y) => {
 
 const setup_board_gen = () => {
     gen_btn.addEventListener("click", () => {
+        clearInterval(clock)
+        time_run = 0;
+        cell_class.flag_count = 0;
+
         //Defines the following variables from the textboxes
         rows = row_text.value
         cols = col_text.value
@@ -185,10 +199,29 @@ const setup_flag_btn = () => {
     flag_btn.addEventListener("click", () => flag_mode = true);
 }
 
+const start_timer = () => {
+    time_run = 0;
+    timer.innerText = "0:00";
+    // Will count up the clock
+    clock = setInterval(() => {
+        let sec = time_run % 60;
+        sec = String(sec).padStart(2,'0');
+        let min = Math.floor(time_run / 60);
+        timer.innerText = `${min}:${sec}`;
+        time_run += 1
+    }, 1000)
+}
+
+// Changes the value of the mine remaining display
+const update_mine_count = () => {
+    let displayed_mine_count = total_mines - cell_class.flag_count;
+    mines_count.innerText = String(displayed_mine_count).padStart(3,'0');
+}
+
 window.onload = function () {
     setup_flag_btn();
     setup_board_gen();
     create_Board();
 }
 
-export {show_surrounding_tiles, check_game_won, game_lose, move_mine, flag_mode}
+export {show_surrounding_tiles, check_game_won, game_lose, move_mine, update_mine_count, flag_mode}

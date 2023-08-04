@@ -78,15 +78,6 @@ body {
 #face {
     height: 32px;
     width: 32px;
-    border: 2px grey solid;
-    margin: auto;
-
-    display: flex;
-    background-color: darkgrey;
-
-    justify-content: center;
-    align-items: center;
-    border-radius: 6px;
     font-size: 25px;
 }  
 
@@ -104,8 +95,22 @@ h1{
 }
 
 #game-info {
+    font-size: 20px;
+    color: #1E1E1E;
     width: 360px;
     margin: 0 auto;
+
     display: flex;
-    
+    justify-content:space-evenly;
+}
+
+#game-info div {
+    border: 2px grey solid;
+    font-weight: bold;
+    background-color: darkgrey;
+    border-radius: 6px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
